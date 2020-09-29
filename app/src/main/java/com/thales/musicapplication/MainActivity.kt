@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(),SongClickListner {
 
 
         setupPermissions()
+        disableViews()
 
         startMusic.setOnClickListener({
             MusicProvider.INSTANCE?.playSong(this)
@@ -79,7 +80,8 @@ class MainActivity : AppCompatActivity(),SongClickListner {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "Permission to record denied")
             makeRequest()
-        }
+        } else
+            enableViews()
     }
 
     private fun makeRequest() {
@@ -107,9 +109,24 @@ class MainActivity : AppCompatActivity(),SongClickListner {
                 } else {
                     Log.i(TAG, "Permission has been granted by user")
                     MusicProvider.INSTANCE?.startMusicPlayer(this)
+                    enableViews()
                 }
             }
         }
+    }
+
+    //enable the views only when user s accepting the permission
+    private fun enableViews() {
+        startMusic.isEnabled = true
+        stopMusic.isEnabled = true
+        pauseMusic.isEnabled = true
+        getSongs.isEnabled = true
+    }
+    private fun disableViews() {
+        startMusic.isEnabled = false
+        stopMusic.isEnabled = false
+        pauseMusic.isEnabled = false
+        getSongs.isEnabled = false
     }
 
     override fun onSongSelected(index: Int) {
