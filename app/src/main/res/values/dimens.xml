@@ -11,6 +11,7 @@
     <dimen name="photo_size">180dp</dimen>
     <dimen name="photo_width">80dp</dimen>
     <dimen name="photo_height">80dp</dimen>
+    <dimen name="card_view_height">64dp</dimen>
     <dimen name="music_icon">48dp</dimen>
 
 

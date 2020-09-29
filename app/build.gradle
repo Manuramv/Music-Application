@@ -36,5 +36,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation "com.github.Manuramv:Musicsdk:22f733bb"
+    implementation "androidx.cardview:cardview:1.0.0"
 
 }

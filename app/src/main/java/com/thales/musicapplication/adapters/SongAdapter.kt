@@ -35,7 +35,7 @@ class SongAdapter(val songClickListner: SongClickListner) : RecyclerView.Adapter
 
 class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     val txtSongName = itemView.findViewById<TextView>(R.id.txtSongName)
-    val txtArtistName = itemView.findViewById<TextView>(R.id.txtArtistName)
+    val txtArtistName = itemView.findViewById<TextView>(R.id.txtfilePath)
 
     fun bind(
         item: Song,
