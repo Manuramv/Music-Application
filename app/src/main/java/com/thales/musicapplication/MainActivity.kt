@@ -5,10 +5,12 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thales.musicapplication.listners.SongClickListner
+import com.thales.musicapplication.views.CommonViews
 import com.thales.musicsdk.musicsdk.MusicProvider
 import com.thales.musicsdk.musicsdk.adapters.SongAdapter
 import com.thales.musicsdk.musicsdk.models.Song
@@ -47,9 +49,10 @@ class MainActivity : AppCompatActivity(),SongClickListner {
                     setUpAdapter(songs)
 
                 }
-
                 override fun onError(error: Throwable) {
                     Log.d(TAG,"song loaded onError::"+error)
+                    displayError(getString(R.string.song_loaded_error))
+
                 }
 
             })
@@ -93,6 +96,14 @@ class MainActivity : AppCompatActivity(),SongClickListner {
 
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Log.i(TAG, "Permission has been denied by user")
+                    CommonViews.showSnackBar(rootView,getString(R.string.permission_required),"retry",object : View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            Log.d(TAG,"clicked rety::")
+                            makeRequest()
+                        }
+                    })
+
+
                 } else {
                     Log.i(TAG, "Permission has been granted by user")
                     MusicProvider.INSTANCE?.startMusicPlayer(this)
@@ -104,6 +115,14 @@ class MainActivity : AppCompatActivity(),SongClickListner {
     override fun onSongSelected(index: Int) {
         Log.i(TAG, "on Song selected::"+ index)
         MusicProvider.INSTANCE?.selectedSongFromList(this,index)
+    }
+
+    private fun displayError(msg:String){
+        CommonViews.showSnackBar(rootView,msg,"retry",object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                Log.d(TAG,"clicked rety::")
+            }
+        })
     }
 
 }
